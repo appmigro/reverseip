@@ -1,4 +1,5 @@
-django
+django==2.2.24
 djongo
 python-decouple
 pymongo==3.12.1
+sqlparse==0.2.4

@@ -80,11 +80,11 @@ from decouple import config, Csv
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': config('MONGODB_ENGINE', default='djongo'),
-        'NAME': config('MONGODB_NAME', default='reverseip'),
-        'ENFORCE_SCHEMA': config('MONGODB_ENFORCE_SCHEMA', default=False, cast=bool),
+        'ENGINE': config('MONGODB_ENGINE'),
+        'NAME': config('MONGODB_NAME'),
+        'ENFORCE_SCHEMA': config('MONGODB_ENFORCE_SCHEMA', cast=bool),
         'CLIENT': {
-            'host': config('MONGODB_HOST', default='mongodb://localhost:27017/reverseip'),
+            'host': config('MONGODB_HOST'),
         },
     }
 }
