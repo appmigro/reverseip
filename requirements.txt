@@ -1,0 +1,4 @@
+django
+djongo
+python-decouple
+pymongo==3.12.1
