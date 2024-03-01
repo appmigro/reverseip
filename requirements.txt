@@ -1,4 +1,5 @@
-django==2.2.24
+django==2.2.
+pymongo[srv]
 djongo
 python-decouple
 pymongo==3.12.1
