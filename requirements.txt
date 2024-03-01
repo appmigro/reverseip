@@ -4,3 +4,4 @@ djongo
 python-decouple
 pymongo==3.12.1
 sqlparse==0.2.4
+django-health-check
