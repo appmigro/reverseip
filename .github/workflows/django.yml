@@ -29,3 +29,13 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
+      env:
+          MONGODB_ENGINE: ${{ secrets.MONGODB_ENGINE }}
+          MONGODB_NAME: ${{ secrets.MONGODB_NAME }}
+          MONGODB_ENFORCE_SCHEMA: ${{ secrets.MONGODB_ENFORCE_SCHEMA }}
+          MONGODB_HOST: ${{ secrets.MONGODB_HOST }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DEBUG: True
+
+
+            
