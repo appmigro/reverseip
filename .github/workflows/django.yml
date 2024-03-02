@@ -1,6 +1,6 @@
 name: Django CI
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: eu-west-1
 on:
   push:
     branches: [ "cicd" ]
@@ -29,14 +29,7 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
-      env:
-          MONGODB_ENGINE: ${{ secrets.MONGODB_ENGINE }}
-          MONGODB_NAME: ${{ secrets.MONGODB_NAME }}
-          MONGODB_ENFORCE_SCHEMA: ${{ secrets.MONGODB_ENFORCE_SCHEMA }}
-          MONGODB_HOST: ${{ secrets.MONGODB_HOST }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DEBUG: True
-
+    
     # Setup sonar-scanner
     - name: Setup SonarQube
       uses: warchant/setup-sonar-scanner@v7
@@ -49,5 +42,24 @@ jobs:
            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
            -Dsonar.sources=$GITHUB_WORKSPACE
 
+  PUBLISH:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v3
 
-            
+      - name: Build & Upload image to ECR
+        uses: appleboy/docker-ecr-action@master
+        with:
+         access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         secret_key: ${{ secrets. AWS_SECRET_ACCESS_KEY }}
+         registry: ${{ secrets.REGISTRY }}
+         repo: reverseip 
+         region: ${{ env.AWS_REGION }}
+         tags: latest,${{ github.run_number }}
+         daemon_off: false
+         dockerfile: ./Dockerfile
+         context: ./
+
+  
