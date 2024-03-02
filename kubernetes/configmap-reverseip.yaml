@@ -1,0 +1,7 @@
+# configmap-django.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reverseip-config
+data:
+  DJANGO_SETTINGS_MODULE: "reverseip.settings"

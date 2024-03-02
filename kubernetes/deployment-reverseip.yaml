@@ -1,0 +1,51 @@
+# deployment-django.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reverseip-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: reverseip-app
+  template:
+    metadata:
+      labels:
+        app: reverseip-app
+    spec:
+      containers:
+      - name: reverseip-app
+        image: akandeadedayo01/reverseip:1.0
+        env:
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: reverseip-app-secrets
+              key: SECRET_KEY
+        - name: DEBUG
+          valueFrom:
+            secretKeyRef:
+              name: reverseip-app-secrets
+              key: DEBUG
+        - name: MONGODB_ENGINE
+          valueFrom:
+            secretKeyRef:
+              name: reverseip-app-secrets
+              key: MONGODB_ENGINE
+        - name: MONGODB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: reverseip-app-secrets
+              key: MONGODB_NAME
+        - name: MONGODB_ENFORCE_SCHEMA
+          valueFrom:
+            secretKeyRef:
+              name: reverseip-app-secrets
+              key: MONGODB_ENFORCE_SCHEMA
+        - name: MONGODB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: reverseip-app-secrets
+              key: MONGODB_HOST
+        ports:
+        - containerPort: 8000
