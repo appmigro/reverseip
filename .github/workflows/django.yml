@@ -1,6 +1,6 @@
 name: Django CI
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: eu-west-1
 on:
   push:
     branches: [ "cicd" ]
@@ -62,7 +62,7 @@ jobs:
          access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
          secret_key: ${{ secrets. AWS_SECRET_ACCESS_KEY }}
          registry: ${{ secrets.REGISTRY }}
-         repo: loggingapp
+         repo: reverseip
          region: ${{ env.AWS_REGION }}
          tags: latest,${{ github.run_number }}
          daemon_off: false
