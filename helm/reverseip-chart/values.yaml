@@ -8,7 +8,7 @@ env:
     MONGODB_ENFORCE_SCHEMA: False
     MONGODB_HOST: mongodb+srv://dayo:Lukeworm56@cluster0.fbjtzzk.mongodb.net/reverseip?retryWrites=true&w=majority&appName=Cluster0
     image:
-      repository: your-dev-image-repo
+      repository: akandeadedayo01/reverseip
       tag: dev-latest
   prod:
     SECRET_KEY: django-insecure-je1tm38uaw@)hs2t&xz-lx++f*e_nlen6*=x*=a^1)yv3=vu5p
@@ -18,7 +18,7 @@ env:
     MONGODB_ENFORCE_SCHEMA: False
     MONGODB_HOST: mongodb+srv://dayo:Lukeworm56@cluster0.fbjtzzk.mongodb.net/reverseip?retryWrites=true&w=majority&appName=Cluster0
     image:
-      repository: your-prod-image-repo
+      repository: akandeadedayo01/reverseip
       tag: prod-latest
 
 replicaCount: 2
