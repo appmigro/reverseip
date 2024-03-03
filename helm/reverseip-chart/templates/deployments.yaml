@@ -1,0 +1,33 @@
+# templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "reverseip-app.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "reverseip-app.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "reverseip-app.name" . }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ if eq .Release.Name "dev" }}{{ .Values.env.dev.image.repository }}:{{ .Values.env.dev.image.tag }}{{ else }}{{ .Values.env.prod.image.repository }}:{{ .Values.env.prod.image.tag }}{{ end }}"
+        env:
+        - name: SECRET_KEY
+          value: {{ if eq .Release.Name "dev" }}{{ .Values.env.dev.SECRET_KEY | quote }}{{ else }}{{ .Values.env.prod.SECRET_KEY | quote }}{{ end }}
+        - name: MONGODB_HOST
+          value: {{ if eq .Release.Name "dev" }}{{ .Values.env.dev.MONGODB_HOST | quote }}{{ else }}{{ .Values.env.prod.MONGODB_HOST | quote }}{{ end }}
+        - name: DEBUG
+          value: {{ if eq .Release.Name "dev" }}{{ .Values.env.dev.DEBUG | quote }}{{ else }}{{ .Values.env.prod.DEBUG | quote }}{{ end }}
+        - name: MONGODB_ENGINE
+          value: {{ if eq .Release.Name "dev" }}{{ .Values.env.dev.MONGODB_ENGINE | quote }}{{ else }}{{ .Values.env.prod.MONGODB_ENGINE | quote }}{{ end }}
+        - name: MONGODB_NAME
+          value: {{ if eq .Release.Name "dev" }}{{ .Values.env.dev.MONGODB_NAME | quote }}{{ else }}{{ .Values.env.prod.MONGODB_NAME | quote }}{{ end }}
+        - name: MONGODB_ENFORCE_SCHEMA
+          value: {{ if eq .Release.Name "dev" }}{{ .Values.env.dev.MONGODB_ENFORCE_SCHEMA | quote }}{{ else }}{{ .Values.env.prod.MONGODB_ENFORCE_SCHEMA | quote }}{{ end }}
+        ports:
+        - containerPort: 8000
