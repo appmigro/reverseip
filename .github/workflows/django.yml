@@ -81,7 +81,7 @@ jobs:
     - name: Set up sops
       run: |
         sudo apt-get update
-        sudo apt-get install -y sop
+        sudo apt-get install -y sops
     
     - name: Decrypt values.yaml
       run: |
