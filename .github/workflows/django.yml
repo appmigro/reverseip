@@ -78,6 +78,11 @@ jobs:
     - name: Code checkout
       uses: actions/checkout@v4
     
+    - name: Set up sops
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y sop
+    
     - name: Decrypt values.yaml
       run: |
         sops --decrypt --pgp $(echo "${{ secrets.PGP_PRIVATE_KEY }}" | base64 -d) values.enc.yaml > values.yaml
