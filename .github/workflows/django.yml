@@ -77,6 +77,13 @@ jobs:
     steps:
     - name: Code checkout
       uses: actions/checkout@v4
+    
+    - name: Decrypt values.yaml
+      run: |
+        sops --decrypt --pgp $(echo "${{ secrets.PGP_PRIVATE_KEY }}" | base64 -d) values.enc.yaml > values.yaml
+      env:
+        SOPS_PGP_FP: ${{ secrets.PGP_FINGERPRINT }}
+    
       
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
