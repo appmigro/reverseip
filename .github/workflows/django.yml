@@ -3,9 +3,9 @@ env:
   AWS_REGION: eu-west-1
 on:
   push:
-    branches: [ "cicd" ]
+    branches: [ "helm" ]
   pull_request:
-    branches: [ "cicd" ]
+    branches: [ "helm" ]
 
 jobs:
   build:
@@ -64,7 +64,7 @@ jobs:
          registry: ${{ secrets.REGISTRY }}
          repo: reverseip
          region: ${{ env.AWS_REGION }}
-         tags: latest,${{ github.run_number }}
+         tags: dev-latest,${{ github.run_number }}
          daemon_off: false
          dockerfile: ./Dockerfile
          context: ./
