@@ -86,7 +86,7 @@ jobs:
         sops --version
     
     - name: Import GPG Key
-      run: gpg --import helm/reverseip_chart/private_key.asc
+      run: gpg --import helm/reverseip-chart/private_key.asc
       # Replace 'path/to/your/private_key.asc' with the actual path to your private key file
 
     - name: Decrypt values.yaml
