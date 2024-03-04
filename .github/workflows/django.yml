@@ -78,10 +78,12 @@ jobs:
     - name: Code checkout
       uses: actions/checkout@v4
     
-    - name: Set up sops
+    - name: Install sops
       run: |
-        sudo apt-get update
-        sudo apt-get install -y sops
+        SOPS_VERSION="3.8.1"
+        wget https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops_${SOPS_VERSION}_amd64.deb
+        sudo dpkg -i sops_${SOPS_VERSION}_amd64.deb
+        sops --version
     
     - name: Decrypt values.yaml
       run: |
