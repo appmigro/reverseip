@@ -85,9 +85,9 @@ jobs:
         sudo dpkg -i sops_${SOPS_VERSION}_amd64.deb
         sops --version
     
-    - name: Import GPG Key
-      run: gpg --import helm/reverseip-chart/private_key.asc
-      # Replace 'path/to/your/private_key.asc' with the actual path to your private key file
+    # - name: Import GPG Key
+    #   run: gpg --import helm/reverseip-chart/private_key.asc
+    #   # Replace 'path/to/your/private_key.asc' with the actual path to your private key file
 
     - name: Decrypt values.yaml
       run: |
