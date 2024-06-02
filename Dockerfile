@@ -2,17 +2,18 @@ FROM python:3-alpine
 
 WORKDIR /reverseip
 
-ADD . /reverseip
-
-EXPOSE 8000
-
+# Copy the requirements file first to leverage Docker cache
 COPY requirements.txt /reverseip/
 
-RUN pip3 install -r requirements.txt --no-cache-dir
+# Install dependencies
+RUN pip3 install --no-cache-dir -r requirements.txt
 
+# Copy the rest of the application code
 COPY . /reverseip
 
-ENTRYPOINT ["python3"]
+# Expose the application port
+EXPOSE 8000
 
-CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+# Set the entrypoint and default command to run the server
+ENTRYPOINT ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
 
